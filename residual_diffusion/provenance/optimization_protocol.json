@@ -1,0 +1,65 @@
+{
+  "version": "20261022_preserve_backbones_v1",
+  "previous": "${HISTORICAL_PROJECT}/experiments/radar_pwv_generative_20261019_v2_normalized",
+  "task": "RADAR+PWV -> future RADAR",
+  "model_structure": "byte-identical to previous models.py",
+  "rounds": {
+    "R1": {
+      "train": "2023-05..08",
+      "valid": "2025-05..06",
+      "test": "2025-07..08"
+    },
+    "R2": {
+      "train": "2025-05..08",
+      "valid": "2023-05..06",
+      "test": "2023-07..08"
+    }
+  },
+  "pilot": {
+    "rounds": [
+      "R1",
+      "R2"
+    ],
+    "methods": [
+      "deterministic",
+      "ddpm",
+      "resdiff",
+      "flow"
+    ],
+    "variants": [
+      "continue",
+      "reconstruction",
+      "balanced"
+    ],
+    "epochs": 16,
+    "seed": 20261019,
+    "runs": 24
+  },
+  "confirmation": {
+    "seeds": [
+      20261020,
+      20261021
+    ],
+    "matched_continue": true,
+    "candidate_gate": {
+      "CSI_gain": 0.003,
+      "POD_min_delta": -0.03,
+      "FAR_max_delta": 0.03,
+      "RMSE_max_ratio": 1.1
+    }
+  },
+  "sampling": {
+    "steps": 16,
+    "pilot_members": 1,
+    "confirmation_members": 4
+  },
+  "storage": {
+    "new_directory_budget_gib": 4,
+    "minimum_free_gib": 20,
+    "full_raw_forecast_export": false
+  },
+  "selection_split": "valid only",
+  "test_periods_previously_seen": true,
+  "training_code_frozen_at_launch": true,
+  "_export_note": "Historical machine project prefix replaced by ${HISTORICAL_PROJECT}; metadata only, not loaded by the portable CLI."
+}

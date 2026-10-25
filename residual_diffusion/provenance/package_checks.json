@@ -1,0 +1,14 @@
+{
+  "repository": "residual_diffusion",
+  "unit_tests": 4,
+  "unit_tests_passed": true,
+  "cli_help_passed": true,
+  "original_optimized_checkpoint_loaded": true,
+  "synthetic_input_prediction_and_figure_passed": true,
+  "device": "cpu",
+  "elapsed_seconds": 166.6,
+  "architecture_and_loss_sources_byte_identical": true,
+  "GPU_full_training_repeated": false,
+  "data_or_weights_included": false,
+  "legacy_input": "synthetic physical-unit NPZ; not a new scientific forecast result"
+}
