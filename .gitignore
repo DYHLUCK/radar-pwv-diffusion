@@ -1,0 +1,27 @@
+# Datasets, model files and generated products
+data/
+outputs/
+runs/
+checkpoints/
+weights/
+*.pt
+*.pth
+*.ckpt
+*.npy
+*.npz
+*.zip
+*.tar
+*.tar.gz
+*.log
+# Local environments and private settings
+.env
+.env.*
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+.DS_Store
+.idea/
+.vscode/
