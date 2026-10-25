@@ -1,0 +1,190 @@
+{
+  "protocol_version": "radar_pwv_generators_v2_training_target_standardized_20261020",
+  "task": "RADAR+PWV -> future RADAR; no RAIN target, no DEM input",
+  "rounds": {
+    "R1": {
+      "train": "2023-05..08",
+      "valid": "2025-05..06",
+      "test": "2025-07..08"
+    },
+    "R2": {
+      "train": "2025-05..08",
+      "valid": "2023-05..06",
+      "test": "2023-07..08"
+    }
+  },
+  "history_frames": 10,
+  "history_span_minutes": 54,
+  "future_frames": 20,
+  "frame_interval_minutes": 6,
+  "window_stride_minutes": 6,
+  "grid": [
+    66,
+    70
+  ],
+  "grayscale_mapping": {
+    "white": 0,
+    "black_radar_dbz": 50,
+    "black_pwv_mm": 80
+  },
+  "missing_data": "Exclude discontinuous windows; no filling or temporal interpolation",
+  "boundaries": "All 30 frames of each window stay in the assigned year/month partition",
+  "methods": {
+    "deterministic": "0.396M common convolutional deterministic reference; not proposed as a new research backbone",
+    "ddpm": "1.152M direct conditional pixel-space diffusion, cosine schedule, velocity prediction, DDIM sampling",
+    "resdiff": "1.157M conditional residual diffusion plus the separately trained/frozen common predictor; not a full DiffCast reproduction",
+    "flow": "1.152M direct conditional rectified-flow matching with straight noise-to-data paths and Euler sampling; not a full FlowCast reproduction"
+  },
+  "shared_network": "Joint 20-frame channel representation, radar/PWV condition encoder, 24/48/96 feature widths, timestep FiLM; no attention, recurrence, Mamba, GAN or latent compression",
+  "losses": {
+    "standard": "deterministic MSE; diffusion velocity MSE; flow velocity MSE",
+    "weighted": "deterministic normalized weighted MSE; generative native MSE plus confidence-weighted 0.5*reconstruction weighted MSE",
+    "skill": "weighted recipe plus confidence-weighted 0.03*softCSI + 0.05*FSS3 loss + 0.05*temporal-difference L1",
+    "radar_pixel_weights": [
+      1,
+      3,
+      6,
+      10
+    ],
+    "radar_weight_bins_dbz": [
+      0,
+      20,
+      30,
+      40,
+      50
+    ],
+    "soft_threshold_width_dbz": 1,
+    "diffusion_auxiliary_confidence": "alpha(t)^2",
+    "flow_auxiliary_confidence": "t^2",
+    "interpretation": "Reconstruction/skill losses are experimental bias terms, not guaranteed probabilistic calibration or a new physical law"
+  },
+  "screen": {
+    "epochs": 24,
+    "seeds": [
+      20261019
+    ],
+    "losses_per_method": [
+      "standard",
+      "weighted",
+      "skill"
+    ],
+    "runs": 24,
+    "training_examples_per_epoch": "All eligible training windows, uniform shuffled without replacement",
+    "validation_screen": "768 equally spaced validation issue windows, selected without labels",
+    "checkpoint_interval_epochs": 4,
+    "full_validation": "Re-rank the three selected screen checkpoints plus final checkpoint on ALL validation windows",
+    "reuse": "R1 unchanged deterministic recipes and the controlled standardized DDPM standard pilot may be reused only after strict provenance, behavior and full-validation count checks. Every formal run is fresh."
+  },
+  "formal": {
+    "epochs": 96,
+    "seeds": [
+      20261019,
+      20261020,
+      20261021
+    ],
+    "runs": 24,
+    "initialization": "All formal seeds from scratch; same maximum/minimum/patience rules for each method; early stopping only on validation screen",
+    "recipe": "Chosen separately per round and method using screening FULL validation only",
+    "checkpoint_selection": "Best three validation-screen checkpoints plus actual final epoch, re-ranked on full validation",
+    "min_epochs": 48,
+    "patience_epochs": 16,
+    "min_CSI_improvement": 0.001
+  },
+  "optimization": {
+    "batch_size": 128,
+    "optimizer": "AdamW",
+    "deterministic_learning_rate": 0.001,
+    "generative_learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1,
+    "scheduler": "CosineAnnealingLR to 1e-5",
+    "EMA_max_decay": 0.999,
+    "training_precision": "BF16, FP32 loss and EMA",
+    "reproducibility": "Fixed issue order within a seed/epoch, saved optimizer/scheduler/RNG states, deterministic algorithms"
+  },
+  "selection": {
+    "primary": "Internal ranking: equal-weight validation CSI across 20/30/40 dBZ and T+30/60/90/120",
+    "CSI_tie_band": 0.003,
+    "tie_break": "Within CSI tie band maximize 0.5*POD - 0.5*FAR + 0.25*FSS3 over the same validation points",
+    "undefined_FAR": "Count as 1 for internal tie-break only; reported metric remains undefined",
+    "reports": "All 20 lead times, all 3 dBZ thresholds; the internal ranking scalar never replaces lead-time curves",
+    "no_test_tuning": true
+  },
+  "generation": {
+    "steps": 16,
+    "members_at_validation_selection": 1,
+    "members_at_test": 4,
+    "sampling_seed": 819173,
+    "noise": "Fixed per issue identity and member, independent of batch size; never choose the best member using truth",
+    "DDIM_eta": 0,
+    "flow_solver": "Euler, 16 network evaluations",
+    "outputs": "Physical 0..50 dBZ, stored/scored as FP16 dBZ; member 0 full fields and all-member statistics retained"
+  },
+  "evaluation": {
+    "metrics": [
+      "CSI",
+      "POD",
+      "FAR",
+      "FSS"
+    ],
+    "thresholds_dbz": [
+      20,
+      30,
+      40
+    ],
+    "lead_minutes": [
+      6,
+      12,
+      18,
+      24,
+      30,
+      36,
+      42,
+      48,
+      54,
+      60,
+      66,
+      72,
+      78,
+      84,
+      90,
+      96,
+      102,
+      108,
+      114,
+      120
+    ],
+    "FSS_neighborhood_width_gridcells": [
+      1,
+      3,
+      5
+    ],
+    "FSS_border_convention": "Truncated neighborhoods; divide by real cell count",
+    "pooling": "Pool hit/false-alarm/miss counts and FSS numerator/denominator across issues separately per lead/threshold",
+    "primary_generative_summary": "Mean of individually evaluated fixed-member skill curves; show spread across members and 3 training seeds",
+    "secondary": "Member-0 and ensemble-mean field skill explicitly labeled; no best-of-N scores",
+    "baselines": [
+      "Persistence",
+      "OpticalFlow"
+    ],
+    "uncertainty": "Paired contiguous 72-hour block bootstrap within each round; never treat overlapping windows as independent storms",
+    "qualitative": "Truth-selected independent-day cases, identical dBZ scale, input/ground truth/all models, 30/60/90/120 min; retain failure cases",
+    "compute": "Parameter counts, total residual-model parameters including base, training and inference time, peak GPU memory"
+  },
+  "paper_scope": "Lightweight method comparison on this dataset, not reproduction of original published SOTA scores and not a claim of a publishable novel architecture",
+  "normalization": {
+    "fit": "Each round uses only unique RADAR target frames from its own training split",
+    "direct_field": "(radar/50 - training_mean)/training_std",
+    "residual_field": "(radar/50 - frozen_base)/training_radar_std, centered at zero",
+    "inverse": "All outputs restored and clipped to the identical physical 0..50 dBZ range",
+    "inputs": "Same fixed physical RADAR/50 and PWV/80; future PWV prohibited",
+    "evidence": "Controlled R1 pilot improves CSI and FAR at every lead/threshold; test remained unseen"
+  },
+  "revision": {
+    "original_root": "${HISTORICAL_PROJECT}/experiments/radar_pwv_generative_20261019",
+    "reason": "Verified training-target normalization; validation-controlled convergence budget",
+    "test_used": false,
+    "all_original_artifacts_preserved": true
+  },
+  "_export_note": "Historical machine project prefix replaced by ${HISTORICAL_PROJECT}; metadata only, not loaded by the portable CLI."
+}

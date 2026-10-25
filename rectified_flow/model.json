@@ -1,0 +1,11 @@
+{
+  "method": "flow",
+  "name": "条件整流流匹配",
+  "input_frames": 10,
+  "output_frames": 20,
+  "grid": [
+    66,
+    70
+  ],
+  "sampling_steps": 16
+}

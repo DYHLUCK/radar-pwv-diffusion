@@ -1,0 +1,54 @@
+{
+  "version": "2026-10-25",
+  "unchanged_experiment_sources": {
+    "src/models.py": {
+      "source": "experiments/radar_pwv_generative_20261022_optimization/src/models.py",
+      "sha256": "2394cec4a90f0fb26ca2da31e40f181b15f0b548d4489a6545ed920d731e3a93",
+      "byte_identical": true
+    },
+    "src/objectives.py": {
+      "source": "experiments/radar_pwv_generative_20261022_optimization/src/objectives.py",
+      "sha256": "539ed744893e83711725e3c76bfbc9ee996b0a66521e0348f9a1028bcb2ef206",
+      "byte_identical": true
+    },
+    "src/optimization_losses.py": {
+      "source": "experiments/radar_pwv_generative_20261022_optimization/src/optimization_losses.py",
+      "sha256": "75bbe220b59e054631624d2a4922c7141bad96e9c53fc75570ec492da31006f1",
+      "byte_identical": true
+    },
+    "src/metrics.py": {
+      "source": "experiments/radar_pwv_generative_20261022_optimization/src/metrics.py",
+      "sha256": "4284934d55cbce5c1a3fe35d6aaa60645717049f2e7e1d406fadf39010ece508",
+      "byte_identical": true
+    },
+    "src/sampler_objective.py": {
+      "source": "experiments/radar_pwv_generative_20261022_optimization/sampler_tuning/sampler_objective.py",
+      "sha256": "f28408551ac9c286d489776fe560669506c24e1a3f473e090a3e32f505be3510",
+      "byte_identical": true
+    },
+    "reference/train_original.py": {
+      "source": "experiments/radar_pwv_generative_20261019_v2_normalized/src/train.py",
+      "sha256": "63d13e2dc182f134254c0cb3a8d23aa62d2d9d18b157cbf2472e0adc7deadf1e",
+      "byte_identical": true
+    },
+    "reference/optimize_original.py": {
+      "source": "experiments/radar_pwv_generative_20261022_optimization/src/optimize.py",
+      "sha256": "4328995011f93f2d8c2aff070342ae7a8a7ecf9b88d164f2cec46f0c8e694efe",
+      "byte_identical": true
+    },
+    "reference/train_sampler_original.py": {
+      "source": "experiments/radar_pwv_generative_20261022_optimization/sampler_tuning/train_sampler.py",
+      "sha256": "97c08894fa79c06126ff272b2643f8ffb1065a090e532d61c50c65de5a18f7d0",
+      "byte_identical": true
+    }
+  },
+  "portable_adapters": [
+    "src/common.py",
+    "src/dataset.py",
+    "src/runtime.py",
+    "src/cli.py",
+    "run.py",
+    "src/model.py"
+  ],
+  "scope": "Core copied verbatim; portable per-run I/O adapters are new and do not claim bit-for-bit historical multi-run replay."
+}

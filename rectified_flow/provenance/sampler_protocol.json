@@ -1,0 +1,57 @@
+{
+  "version": "sampler_output_auxiliary_20261023_v1",
+  "task": "RADAR+PWV -> future RADAR",
+  "models": [
+    "ddpm",
+    "resdiff",
+    "flow"
+  ],
+  "architecture_and_inference": "identical to phase1; 16NFE; unchanged noise/path/condition/frozen residual base",
+  "initialization": "original v2 selected weight, not phase1 loss-tuned weight; isolate actual-output training",
+  "pilot": {
+    "rounds": [
+      "R1",
+      "R2"
+    ],
+    "seed": 20261019,
+    "new_candidate_runs": 6,
+    "epochs": 16
+  },
+  "controls": "reuse audited phase1 continue runs when all settings match; otherwise train identical native-loss control",
+  "auxiliary": {
+    "native_objective": "same v2 selected loss recipe",
+    "sampled_objective": "phase1 clean_objective balanced on actual 16-step sampled prediction",
+    "coefficient": 0.5,
+    "frequency_training_batches": 4,
+    "samples_per_auxiliary_batch": 16,
+    "gradient_last_steps": 4,
+    "noise_rng": "separate seeded CUDA generator; saved/restored; leaves native training RNG unchanged"
+  },
+  "optimizer": {
+    "type": "AdamW",
+    "lr": 5e-05,
+    "weight_decay": 0.0001,
+    "batch_size": 128,
+    "scheduler": "cosine16 to1e-6",
+    "gradient_clip": 1,
+    "EMA": 0.999
+  },
+  "selection": "same fixed validation screen768 then top2 fullvalidation plus original epoch0; CSI primary and POD/FAR/FSS tie-break",
+  "confirmation": {
+    "seeds": [
+      20261020,
+      20261021
+    ],
+    "gate": "CSI gain >.003 vs original; POD >=original-.03; FAR <=original+.03; RMSE <=1.1 original",
+    "matched_control_required": true
+  },
+  "report": "all20lead curves, 3thresholds,4fixed members,no best-of-N,actual prediction images and comparison with phase1 winner",
+  "storage": {
+    "combined_parent_directory_budget_gib": 4,
+    "minimum_free_gib": 20,
+    "save": "checkpoints plus 72h-block metric sums and selected case fields",
+    "no_full_prediction_export": true
+  },
+  "dependency": "phase1 analysis completed and independently audited before new training",
+  "test": "no test evaluation or tuning; historical test periods previously viewed"
+}

@@ -1,0 +1,11 @@
+{
+  "method": "ddpm",
+  "name": "直接条件扩散",
+  "input_frames": 10,
+  "output_frames": 20,
+  "grid": [
+    66,
+    70
+  ],
+  "sampling_steps": 16
+}

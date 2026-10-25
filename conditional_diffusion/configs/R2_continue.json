@@ -1,0 +1,20 @@
+{
+  "method": "ddpm",
+  "round": "R2",
+  "seed": 20261019,
+  "recipe": "skill",
+  "stage": "continue",
+  "epochs": 16,
+  "minimum_epochs": 16,
+  "patience": 0,
+  "batch_size": 128,
+  "learning_rate": 5e-05,
+  "weight_decay": 0.0001,
+  "eta_min": 1e-06,
+  "bf16": true,
+  "validation_every": 4,
+  "keep_candidates": 2,
+  "include_final": false,
+  "minimum_free_gib": 20,
+  "output_budget_gib": 4
+}

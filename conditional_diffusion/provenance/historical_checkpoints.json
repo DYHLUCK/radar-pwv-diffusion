@@ -1,0 +1,101 @@
+{
+  "scope": "Metadata only; no weights included. These exact residual-generator hashes identify their matching frozen deterministic base.",
+  "checkpoints": [
+    {
+      "round": "R1",
+      "seed": 20261019,
+      "stage": "original",
+      "selected_epoch": 36,
+      "checkpoint_sha256": "2e0a5cdb18a9a6c6fa78ac9c0441089503b50630961cba4ed2fc020cecaee656",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R1",
+      "seed": 20261019,
+      "stage": "sampled_skill",
+      "selected_epoch": 4,
+      "checkpoint_sha256": "f67ab6d1b33fc2f6ebfd52070a9c44036ae705a2bd30fddf793dee567d6d5a91",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R1",
+      "seed": 20261020,
+      "stage": "original",
+      "selected_epoch": 52,
+      "checkpoint_sha256": "d4466d93b2bbb57f5541b8100ba9d6da131252f3cad85761a0301c65b889ece3",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R1",
+      "seed": 20261020,
+      "stage": "sampled_skill",
+      "selected_epoch": 12,
+      "checkpoint_sha256": "2ad6765598754e0dfd5b058d5756a46887660b7e2a2473733d445c9599073ee7",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R1",
+      "seed": 20261021,
+      "stage": "original",
+      "selected_epoch": 12,
+      "checkpoint_sha256": "4869c784d4bde7410c959098ec7234b1daf7d8642959f660421f0bd2efd4de87",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R1",
+      "seed": 20261021,
+      "stage": "sampled_skill",
+      "selected_epoch": 16,
+      "checkpoint_sha256": "767832004deec38a690e5bf15394e95d4887e611987d3b5491e2b530fbb46c17",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R2",
+      "seed": 20261019,
+      "stage": "original",
+      "selected_epoch": 52,
+      "checkpoint_sha256": "78b55e4e5f517e39fed5cacf8cdcec6ec9aa0cd31cbd1ee805bc392718fd480a",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R2",
+      "seed": 20261019,
+      "stage": "sampled_skill",
+      "selected_epoch": 12,
+      "checkpoint_sha256": "68c5f64bc5eb28a2ab937dd991d78a0fa4c71ac70acfdfce697043ea59cdbdbf",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R2",
+      "seed": 20261020,
+      "stage": "original",
+      "selected_epoch": 56,
+      "checkpoint_sha256": "16553f3b19a9782708f5a7f576515ab0916b338b549ea382970abb174f7ff226",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R2",
+      "seed": 20261020,
+      "stage": "sampled_skill",
+      "selected_epoch": 16,
+      "checkpoint_sha256": "9c92dd9a5cc178a99ef3b5cc95544574548c8af43c2998a5cf7033192c8986a2",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R2",
+      "seed": 20261021,
+      "stage": "original",
+      "selected_epoch": 48,
+      "checkpoint_sha256": "6c75b9a8e090db64c67e6943b828e42cf1cdbc256c6bcd5e63c751d900359412",
+      "base_checkpoint_sha256": null
+    },
+    {
+      "round": "R2",
+      "seed": 20261021,
+      "stage": "sampled_skill",
+      "selected_epoch": 16,
+      "checkpoint_sha256": "d1dfb34d931045bd8de9f2083345f9f0597d39d98f56c9d93e7dcbf4f41a93ab",
+      "base_checkpoint_sha256": null
+    }
+  ]
+}
